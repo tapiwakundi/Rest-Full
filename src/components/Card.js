@@ -25,18 +25,24 @@ import { StackNavigator } from 'react-navigation';
 
 const styles = StyleSheet.create({
     image: {
-        width: 200,
-        height: 90,
-        marginRight: 30
+        width: 250,
+        height: 120,
+        borderRadius: 12,
+        marginBottom: 15,
+        marginLeft: 30
     },
     details: {
         flexDirection: 'row',
+         marginLeft: 30
     },
     detailsText: {
         color: '#999'
+        
+
     },
     name:{
         fontWeight: "700",
+        marginLeft: 30
     } 
     
 })

@@ -43,7 +43,9 @@ const styles = StyleSheet.create({
         borderRadius: 15,
         height: 50,
         width: 320,
-        paddingHorizontal: 15
+        paddingHorizontal: 15,
+        marginBottom: 20
+
 
     },
     input: {
@@ -53,6 +55,6 @@ const styles = StyleSheet.create({
     },
     icon: {
         alignSelf: 'center',
-        fontSize: 35
+        fontSize: 27
     }
 })

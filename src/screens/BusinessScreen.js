@@ -6,7 +6,7 @@ import Details from '../components/Details'
 export default function BusinessScreen({navigation}) {
     const id = navigation.getParam('id')
    
-    const [business, setBusiness] = useState([])
+    const [business, setBusiness] = useState(null)
 
     useEffect(() => {
         async function fetchData() {
@@ -22,9 +22,13 @@ export default function BusinessScreen({navigation}) {
 
     }, [])
 
+    if(!business) {
+        return null
+    }
+
     return (
         <View>
-            <Details name={business.name} stars={business.rating} image={(business.image_url)} />
+            <Details name={business.name} stars={business.rating} image={business.photos} />
     <Text>Walking dripped down see the DETAILS </Text>
         </View>
     )

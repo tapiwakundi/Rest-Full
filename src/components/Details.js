@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
-import { TouchableOpacity } from 'react-native-gesture-handler'
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler'
 import  { NavigagationInjectedProps, withNavigation } from 'react-navigation'
 import { StackNavigator } from 'react-navigation';
 
@@ -11,11 +11,21 @@ import { StackNavigator } from 'react-navigation';
     return (
     <View>
 
-            <Image style={styles.image} source={{ uri: image }} />
+           
             <View style={styles.details} >
-                <Text style={styles.detailsText}>{name}, </Text>
-                <Text style={styles.detailsText} >{stars}</Text>
+                <Text style={styles.name}>{name} </Text>
+                <Text style={styles.detailsText} >{stars} Stars</Text>
+               
+                
             </View>
+            <Text>Here do be some images</Text>
+            <FlatList 
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                data={image}
+                keyExtractor={item => item}
+                renderItem={({item}) => {return <Image source={{uri: item}} style={styles.image}/>}}
+                />
             </View>
        
     )
@@ -23,8 +33,9 @@ import { StackNavigator } from 'react-navigation';
 
 const styles = StyleSheet.create({
     image: {
-        width: 200,
+        width: 250,
         height: 110,
+        borderRadius: 12,
         marginRight: 30
     },
     details: {
@@ -32,6 +43,10 @@ const styles = StyleSheet.create({
     },
     detailsText: {
         color: '#999'
+    },
+    name: {
+        fontSize: 20,
+        fontWeight: '700'
     }
 })
 
