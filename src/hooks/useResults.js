@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Yelp from '../api/yelp'
 
 
@@ -25,6 +25,8 @@ export default () => {
         })
     }
 
+
+
     useEffect(() => {
         async function fetchData() {
             try {
@@ -39,5 +41,5 @@ export default () => {
 
     }, [error])
 
-    return [error, filterBusinessesByPrice, handlePress, isLoading ]
+    return [error, filterBusinessesByPrice, handlePress, isLoading, useEffect ]
 }

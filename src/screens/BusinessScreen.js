@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import Yelp from '../api/yelpBusiness'
-import Details from '../components/Details'
+import Details from '../components/activityComponents/Details'
 
 export default function BusinessScreen({navigation}) {
     const id = navigation.getParam('id')
