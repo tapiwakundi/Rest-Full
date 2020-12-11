@@ -24,6 +24,7 @@ export default function CardListings({ businesses, type, isLoading }) {
                             renderItem={({ item }) => {
                                 return <Card name={item.name} stars={item.rating} image={item.imageSrc} id={item.id} reviews={item.reviewCount} />
                             }}
+                            keyExtractor={item => item.id}
                             horizontal
                             showsHorizontalScrollIndicator={false}
                         />

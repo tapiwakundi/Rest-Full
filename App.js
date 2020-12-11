@@ -7,18 +7,22 @@ import SearchScreen from './src/screens/SearchScreen';
 import BusinessScreen from './src/screens/BusinessScreen';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import CategoryScreen from './src/screens/CategoryScreen'
+import { Ionicons } from '@expo/vector-icons';
 
-
-const Search = createStackNavigator({
+const navigator = createStackNavigator({
   search: SearchScreen,
-  category: CategoryScreen
+  category: CategoryScreen,
+  business: {
+    screen: BusinessScreen,
+    // navigationOptions: {
+    //   header: ({ goBack }) => ({
+    //     left: <Ionicons name="ios-arrow-dropleft" size={24} color="black" onPress={ () => { goBack() } } />,
+    //   }),
+    // },
+  }
 })
 
-const navigator = createBottomTabNavigator({
-  Search,
-  Business: BusinessScreen
 
-})
 
 
 export default createAppContainer(navigator)

@@ -5,6 +5,7 @@ import SearchBar from '../components/SearchBar'
 import Yelp from '../api/yelp'
 import useResults from '../hooks/useResults'
 import CategoryListings from '../components/categoryComponents/CategoryListings'
+import ActivityCategoryListings from '../components/activityComponents/ActivityCategoryListings'
 
 export default function SearchScreen() {
 
@@ -12,11 +13,9 @@ export default function SearchScreen() {
 
     return (
         <>
-
             {error ? <Text>error</Text> : null}
+             
             <View style={styles.container}>
-
-
             </View>
             <ScrollView style={styles.container}>
                 <View style={styles.hello} >
@@ -26,14 +25,12 @@ export default function SearchScreen() {
 
                 <SearchBar handlePress={handlePress} />
                 <CategoryListings type='Explore Food' />
+                <ActivityCategoryListings type='Explore Activities' />
                 <CardListings businesses={filterBusinessesByPrice('$$$')} type='Recommended' isLoading={isLoading} />
                 <CardListings businesses={filterBusinessesByPrice('$$')} type='Cheaper' isLoading={isLoading} />
                 <CardListings businesses={filterBusinessesByPrice('$')} type='Cheap' isLoading={isLoading} />
             </ScrollView>
             <StatusBar barStyle='dark-content' />
-
-
-
         </>
     )
 }

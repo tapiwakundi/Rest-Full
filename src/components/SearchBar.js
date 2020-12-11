@@ -23,10 +23,11 @@ export default function SearchBar(props) {
                     style={styles.input}
                     placeholder='Search Restaurant'
                     autoCapitalize='sentences'
-                    autoCorrect={false}
+                    autoCorrect={true}
                     value={searchItem}
                     onChangeText={handleChange}
                     onEndEditing={handleSearch}
+                    returnKeyType='search'
                 />
             </View>
     )

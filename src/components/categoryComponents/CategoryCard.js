@@ -3,7 +3,6 @@ import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import Yelp from '../../api/yelp'
 import  { withNavigation } from 'react-navigation'
-import useResults from '../../hooks/useResults'
 
 const CategoryCard = ({name, image, navigation}) => {
 

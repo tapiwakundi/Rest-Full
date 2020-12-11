@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { StyleSheet, Text, View, Image } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import  { NavigagationInjectedProps, withNavigation } from 'react-navigation'
-import { StackNavigator } from 'react-navigation';
+import  { withNavigation } from 'react-navigation'
 
 
 
@@ -10,7 +9,7 @@ import { StackNavigator } from 'react-navigation';
 
     return (
         <TouchableOpacity
-            onPress={() => navigation.navigate('Business', {id})} 
+            onPress={() => navigation.navigate('business', {id})} 
         >
 
             <Image style={styles.image} source={{ uri: image }} />
@@ -26,7 +25,7 @@ import { StackNavigator } from 'react-navigation';
 const styles = StyleSheet.create({
     image: {
         width: 250,
-        height: 120,
+        height: 200,
         borderRadius: 12,
         marginBottom: 15,
         marginLeft: 30
@@ -37,8 +36,6 @@ const styles = StyleSheet.create({
     },
     detailsText: {
         color: '#999'
-        
-
     },
     name:{
         fontWeight: "700",
