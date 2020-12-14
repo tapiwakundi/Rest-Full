@@ -3,14 +3,6 @@ import { NativeModules } from 'react-native'
 
 const apiKey = '8yC19Qb1LhfI5R7XXm65RoogEKVuq19uscnTP8Qppzij22Fa7m4rSF1W4SQD9Av9gLv4WyzSAx6YhWB3hsacVZxFYNXEb-8UwfFZc6yTOC28GOk4MO4350_1HmWLX3Yx'
 
-// export default axios.create({
-//     baseURL: `https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses`,
-//     headers: {
-//         Authorization: `Bearer ${apiKey}`
-//         }
-// })
-
-
 const sortBy = 'best_match'
 const location = 'calgary'
 
@@ -39,7 +31,10 @@ const Yelp = {
                             rating: business.rating,
                             reviewCount: business.review_count,
                             url: business.url,
-                            price: business.price
+                            price: business.price,
+                            location: business.coordinates,
+                            isClosed: business.is_closed,
+                            // location: business.region
                         }
                     })
                 } 

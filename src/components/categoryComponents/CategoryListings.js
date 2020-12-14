@@ -6,7 +6,7 @@ import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
 import FoodCategories from './FoodCategories'
 import CategoryCard from '../categoryComponents/CategoryCard'
 
-console.log(FoodCategories);
+
 export default function CategoryListings({ type, isLoading }) {
 
  
@@ -19,7 +19,7 @@ export default function CategoryListings({ type, isLoading }) {
                     renderItem={({ item }) => {
                         return <CategoryCard name={item.name} image={item.image} id={item.id}  />
                     }}
-                    keyExtractor={item => item.id}
+                    keyExtractor={item => item.name}
                     horizontal
                     showsHorizontalScrollIndicator={false}
                 />

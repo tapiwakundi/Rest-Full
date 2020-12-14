@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { Button, StyleSheet, Text, View, Linking } from 'react-native'
 import MapView, {Circle, Marker, PROVIDER_DEFAULT} from 'react-native-maps'
 import { Dimensions } from 'react-native'
@@ -6,16 +6,17 @@ import openMap from 'react-native-open-maps';
 import { Permissions } from 'expo-permissions';
 import MapViewDirections from 'react-native-maps-directions'
 import * as Location from 'expo-location';
-
-
-const origin = {}
-
-const GOOGLE_MAPS_KEY = 'AIzaSyCwiRauwwaNWHnuLAEWZiFj0ewyb5kTjFA'
+import { Context as LocationContext} from '../../context/locationContext'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
+const GOOGLE_MAPS_KEY = 'AIzaSyCwiRauwwaNWHnuLAEWZiFj0ewyb5kTjFA'
 
 const Directions = ({destination, name}) => {
+
+    const {setCurrentLocation, 
+        state: {currentLocation}
+    } = useContext(LocationContext)
     
     const latitude = destination.latitude;
 const longitude = destination.longitude;
@@ -44,52 +45,40 @@ const goToDestination = () => {
 }
 
     
-    
-    
     let coordsPlace = {
         latitude: destination.latitude, 
         longitude: destination.longitude 
     }
 
-    const [location, setLocation] = useState(null);
     const [errorMsg, setErrorMsg] = useState(null);
+    const [duration, setDuration] = useState('')
+    const [distance, setDistance] = useState('')
 
     useEffect(() => {
-        (async () => {
-        let { status } = await Location.requestPermissionsAsync();
-        if (status !== 'granted') {
-            setErrorMsg('Permission to access location was denied');
-            return;
-        }
-
-        let location = await Location.getCurrentPositionAsync({});
-        setLocation({
-            latitude: location.latitude,
-        longitude: location.longitude});
-        })();
-    }, []);
+      setCurrentLocation();
+      }, []);
 
     let text = 'Waiting..';
     if (errorMsg) {
         text = errorMsg;
-    } else if (location) {
-        text = JSON.stringify(location);
-    }
-
-    console.log(location);
+    } 
 
     
-
+   
     return (
         <View style={styles.container}>
             <Text style={styles.header} >Directions</Text>
+            <Text style={styles.directions}>{`${name} is ${duration} away and ${distance} away `}</Text>
             <MapView 
             style={styles.map} 
+            showsPointsOfInterest={true}
+
             region={
                 {latitude: destination.latitude,
                 longitude: destination.longitude,
-                longitudeDelta: 0.002,
-                latitudeDelta: 0.008}
+                longitudeDelta: 0.08,
+                latitudeDelta: 0.2
+            }
             }
             provider={PROVIDER_DEFAULT}
             showsCompass={true}
@@ -101,9 +90,17 @@ const goToDestination = () => {
                 image={require('../../../assets/images/pin.png')}
                 />
                 <MapViewDirections 
-                origin={location}
+                origin={currentLocation}
                 destination={destination}
                 apikey={GOOGLE_MAPS_KEY}
+                strokeWidth={3}
+                strokeColor='rgb(0,122,255)'
+                onReady={result => {
+                    let distance= result.distance
+                    let duration = result.duration
+                    setDistance(`${Math.round(distance * 100) / 100} km`)
+                    setDuration(`${Math.round(duration) } min`)
+                }}
                 />
              
             </MapView>
@@ -133,6 +130,11 @@ const styles = StyleSheet.create({
     },
     container: {
         marginBottom: 150
+    },
+    directions: {
+        marginHorizontal: 25,
+        color: '#777',
+        marginVertical: 10
     }
 
 })

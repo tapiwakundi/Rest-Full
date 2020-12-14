@@ -8,6 +8,9 @@ import BusinessScreen from './src/screens/BusinessScreen';
 import { createBottomTabNavigator } from 'react-navigation-tabs'
 import CategoryScreen from './src/screens/CategoryScreen'
 import { Ionicons } from '@expo/vector-icons';
+import { Provider as LocationProvider } from './src/context/locationContext'
+import {Provider as BusinessProvider } from './src/context/initialBusinessesContext'
+import { setNavigator } from './src/navigationRef'
 
 const navigator = createStackNavigator({
   search: SearchScreen,
@@ -25,4 +28,14 @@ const navigator = createStackNavigator({
 
 
 
-export default createAppContainer(navigator)
+const App = createAppContainer(navigator)
+
+export default () => {
+  return(
+    <LocationProvider>
+      <BusinessProvider>
+      <App ref={(navigator) => {setNavigator(navigator)}}/>
+      </BusinessProvider>
+    </LocationProvider>
+  )
+  }

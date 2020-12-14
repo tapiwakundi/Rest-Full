@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, View, Text, ImageBackground } from 'react-native'
 import Yelp from '../api/yelpBusiness'
 import Details from '../components/activityComponents/Details'
@@ -6,30 +6,22 @@ import { Dimensions } from 'react-native'
 import { Ionicons } from '@expo/vector-icons';
 import Directions from '../components/mapComponents/Directions'
 import { ScrollView } from 'react-native-gesture-handler'
+import { Context as BusinessContext} from '../context/initialBusinessesContext'
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 export default function BusinessScreen({ navigation }) {
     const id = navigation.getParam('id')
 
-    const [business, setBusiness] = useState(null)
+    const {state: {business}, fetchBusiness} = useContext(BusinessContext)
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-                const res = await Yelp.search(id)
-                setBusiness(res)
-            } catch (error) {
-                setError('Unfortunately something went wrong')
-            }
-
-        }
-        fetchData()
-
+       fetchBusiness(id)
     }, [])
 
     if (!business) {
         return null
     }
+
 
     return (
         <View>

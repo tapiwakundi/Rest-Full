@@ -19,7 +19,7 @@ export default function ActivityCategoryListings({ type, isLoading }) {
                         renderItem={({ item }) => {
                             return <CategoryCard name={item.name} image={item.image} id={item.id}  />
                         }}
-                        keyExtractor={item => item.id}
+                        keyExtractor={item => item.name}
                         horizontal
                         showsHorizontalScrollIndicator={false}
                     />

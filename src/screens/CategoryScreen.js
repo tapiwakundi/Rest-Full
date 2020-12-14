@@ -1,37 +1,32 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, View, Text } from 'react-native'
 import useResults from '../hooks/useResults'
 import Yelp from '../api/yelp'
 import { FlatList, ScrollView } from 'react-native-gesture-handler'
 import VerticalCard from '../components/categoryComponents/VerticalCard'
 import ShimmerPlaceHolder from 'react-native-shimmer-placeholder'
+import { Context as BusinessContext } from '../context/initialBusinessesContext'
+import { Context as LocationContext} from '../context/locationContext'
 
 export default function CategoryScreen({ navigation }) {
     const name = navigation.getParam('name')
 
-    const [error, setError] = useState('')
-    const [businesses, setBusineses] = useState([])
-    const [isLoading, setIsLoading] = useState(true)
+  
+    const { error, isLoading, handlePress, state: { businesses } } = useContext(BusinessContext)
+    const {state: {currentLocation}, setCurrentLocation} = useContext(LocationContext)
 
 
     useEffect(() => {
-        async function fetchData() {
-            try {
-
-                let res = await Yelp.search(name)
-                setBusineses(res)
-                setIsLoading(false)
-            } catch (error) {
-                setError('Unfortunately somethng went wrong')
-            }
-        }
-        fetchData()
-
+        handlePress(name)
+        setCurrentLocation()
     }, [error])
+
+  
     return (
         <ScrollView style={styles.container} >
             <Text style={styles.header} >Great choice!</Text>
             <Text style={styles.sub_header} >{`So here's what we found for ${name}`}</Text>
+          
 
 
             {
@@ -41,7 +36,15 @@ export default function CategoryScreen({ navigation }) {
                     renderItem={({ item }) => {
                         return (
                             <>
-                                <VerticalCard name={item.name} image={item.imageSrc} stars={item.rating} isLoading={isLoading} id={item.id} />
+                                <VerticalCard name={item.name} 
+                                image={item.imageSrc} 
+                                stars={item.rating} 
+                                isLoading={isLoading} 
+                                id={item.id} 
+                                destination={item.location} 
+                                currentLocation={currentLocation}
+                                />
+
                                 <View style={styles.border} ></View>
                             </>
                         )
