@@ -25,9 +25,7 @@ export default function CategoryListings({ type, isLoading }) {
                 />
         
             </View>
-
-
-
+            
             <View style={styles.border} ></View>
         </View>
     )

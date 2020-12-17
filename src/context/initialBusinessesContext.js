@@ -43,7 +43,6 @@ const handlePress = dispatch => (term) => {
 
 const fetchBusiness = dispatch => async id => {
     let res = await YelpBusiness.search(id)
-    console.log(res);
     dispatch({type: SET_BUSINESS, payload: res})
 }
 
@@ -59,5 +58,8 @@ export const { Provider, Context } = createDataContext(
     handlePress,
     fetchBusiness
     },
-    {error: '', businesses: [], isLoading: true, business: {}} 
+    {error: '', 
+    businesses: [], 
+    isLoading: true, 
+    business: []} 
 )

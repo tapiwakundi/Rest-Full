@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { StyleSheet, View, Text, ScrollView, Image, StatusBar } from 'react-native'
-import CardListings from '../components/activityComponents/CardListings'
+import { StyleSheet, View, Text, ScrollView, Image, StatusBar, FlatList } from 'react-native'
 import SearchBar from '../components/SearchBar'
-import CategoryListings from '../components/categoryComponents/CategoryListings'
-import ActivityCategoryListings from '../components/activityComponents/ActivityCategoryListings'
-import { Context as BusinessContext } from '../context/initialBusinessesContext'
 import SwitchSelector from "react-native-switch-selector";
+import VerticalCard from '../components/categoryComponents/VerticalCard'
+
+// Context imports 
+import { Context as BusinessContext } from '../context/initialBusinessesContext'
+import { Context as LocationContext } from '../context/locationContext'
 
 
 const options = [
@@ -16,8 +17,10 @@ const options = [
 export default function SearchScreen() {
 
     const { error, isLoading, fetchData, handlePress, state: { businesses } } = useContext(BusinessContext)
+    const { state: { currentLocation }, setCurrentLocation } = useContext(LocationContext)
 
     useEffect(() => {
+        setCurrentLocation()
         fetchData()
     }, [error])
 
@@ -40,13 +43,33 @@ export default function SearchScreen() {
                     options={options}
                     initial={0}
                     onPress={value => console.log(`Call onPress with value: ${value}`)}
+                    style={{ marginHorizontal: 25 }}
+                    animationDuration={400}
                 />
+                {
+                    <FlatList
+                        data={businesses}
+                        renderItem={({ item }) => {
+                            return (
+                                <>
+                                    <VerticalCard
+                                        name={item.name}
+                                        image={item.imageSrc}
+                                        stars={item.rating}
+                                        isLoading={isLoading}
+                                        id={item.id}
+                                        destination={item.location}
+                                        currentLocation={currentLocation}
+                                    />
 
-                <CategoryListings type='Explore Food' />
-                <ActivityCategoryListings type='Explore Activities' />
-                <CardListings businesses={businesses} type='Recommended' isLoading={isLoading} />
-                {/* <CardListings businesses={filterBusinessesByPrice('$$')} type='Cheaper' isLoading={isLoading} />
-                <CardListings businesses={filterBusinessesByPrice('$')} type='Cheap' isLoading={isLoading} /> */}
+                                    <View style={styles.border} ></View>
+                                </>
+                            )
+                        }}
+                        style={{ backgroundColor: 'white' }}
+                        keyExtractor={item => item.id}
+                    />
+                }
             </ScrollView>
             <StatusBar barStyle='dark-content' />
         </>

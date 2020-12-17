@@ -1,15 +1,14 @@
 import React, { useState } from 'react'
 import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
-import Yelp from '../../api/yelp'
 import  { withNavigation } from 'react-navigation'
 
-const CategoryCard = ({name, image, navigation}) => {
+const CategoryCard = ({name, image, navigation, id}) => {
 
     
     return (
         <View>
-            <TouchableOpacity activeOpacity={.8} onPress={()=>navigation.navigate('category', {name})} >
+            <TouchableOpacity activeOpacity={.8} onPress={()=>navigation.navigate('business', {id})} >
             <ImageBackground style={styles.image} imageStyle={{borderRadius: 24}} source={image}>
                 <View style={styles.overlay} >
                 <Text style={styles.text} >{name}</Text>

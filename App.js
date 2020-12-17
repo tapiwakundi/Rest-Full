@@ -11,18 +11,32 @@ import { Ionicons } from '@expo/vector-icons';
 import { Provider as LocationProvider } from './src/context/locationContext'
 import {Provider as BusinessProvider } from './src/context/initialBusinessesContext'
 import { setNavigator } from './src/navigationRef'
+import ExploreScreen from './src/screens/ExploreScreen';
+import AccountScreen from './src/screens/AccountScreen';
 
-const navigator = createStackNavigator({
+
+const search = createStackNavigator({
   search: SearchScreen,
-  category: CategoryScreen,
-  business: {
-    screen: BusinessScreen,
-    // navigationOptions: {
-    //   header: ({ goBack }) => ({
-    //     left: <Ionicons name="ios-arrow-dropleft" size={24} color="black" onPress={ () => { goBack() } } />,
-    //   }),
-    // },
-  }
+  business: BusinessScreen
+}, {
+  
+})
+
+const explore = createStackNavigator({
+  explore: ExploreScreen,
+  business: BusinessScreen
+}, {
+
+})
+
+const account = createStackNavigator({
+  account: AccountScreen
+})
+
+const navigator = createBottomTabNavigator({
+  search,
+  explore,
+  account
 })
 
 

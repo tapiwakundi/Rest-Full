@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react'
 import { StyleSheet, View, Text, ImageBackground } from 'react-native'
-import Yelp from '../api/yelpBusiness'
 import Details from '../components/activityComponents/Details'
 import { Dimensions } from 'react-native'
-import { Ionicons } from '@expo/vector-icons';
 import Directions from '../components/mapComponents/Directions'
 import { ScrollView } from 'react-native-gesture-handler'
 import { Context as BusinessContext} from '../context/initialBusinessesContext'
@@ -11,18 +9,24 @@ const SCREEN_WIDTH = Dimensions.get('window').width
 
 export default function BusinessScreen({ navigation }) {
     const id = navigation.getParam('id')
-
+    
     const {state: {business}, fetchBusiness} = useContext(BusinessContext)
 
     useEffect(() => {
-       fetchBusiness(id)
+        let isCancelled = false
+        if (!isCancelled) {
+            fetchBusiness(id)
+        }
+        return () => {
+            isCancelled = true
+        }
     }, [])
-
+    
     if (!business) {
-        return null
-    }
+        console.log('nothinig to show');
+    } 
 
-
+    console.log(business.photos[2]);
     return (
         <View>
             <ImageBackground source={{ uri: business.photos[2] }} style={styles.backgroundImage} />
@@ -39,9 +43,12 @@ export default function BusinessScreen({ navigation }) {
                 />
                 <Directions destination={business.coordinates} name={business.name}/>
             </ScrollView>
-
+    <Text>debugging</Text>
         </View>
     )
+    
+
+    
 }
 
 BusinessScreen.navigationOptions = ({ /*navigation*/ }) => {
