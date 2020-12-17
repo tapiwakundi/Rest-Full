@@ -8,7 +8,7 @@ import MapViewDirections from 'react-native-maps-directions'
 import * as Location from 'expo-location';
 
 const SCREEN_WIDTH = Dimensions.get('window').width
-const GOOGLE_MAPS_KEY = 'AIzaSyCwiRauwwaNWHnuLAEWZiFj0ewyb5kTjFA'
+const GOOGLE_MAPS_KEY = 'Your api key goes here'
 
 const VerticalCard = ({name, image, navigation, stars, isLoading, id, destination, currentLocation}) => {
     const [duration, setDuration] = useState('')

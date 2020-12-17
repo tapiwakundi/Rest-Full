@@ -25,8 +25,8 @@ export default function BusinessScreen({ navigation }) {
     if (!business) {
         console.log('nothinig to show');
     } 
+    
 
-    console.log(business.photos[2]);
     return (
         <View>
             <ImageBackground source={{ uri: business.photos[2] }} style={styles.backgroundImage} />
@@ -38,7 +38,8 @@ export default function BusinessScreen({ navigation }) {
                 phone={business.phone} 
                 reviews={business.review_count} 
                 hours={business.hours}
-                isOpen={business.hours.is_open_now}
+                isOpen={business.hours.[0].is_open_now}
+                address={business.location.display_address}
 
                 />
                 <Directions destination={business.coordinates} name={business.name}/>

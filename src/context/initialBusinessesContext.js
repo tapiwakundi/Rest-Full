@@ -38,7 +38,7 @@ const handlePress = dispatch => (term) => {
         .then((businesses) => {
             dispatch({type: SET_SEARCH_RESULTS_SUCCESS, payload: businesses})
         })
-        .catch(err => dipatch({type: SET_SEARCH_RESULTS_FAILURE}))
+        .catch(err => dispatch({type: SET_SEARCH_RESULTS_FAILURE}))
 }
 
 const fetchBusiness = dispatch => async id => {

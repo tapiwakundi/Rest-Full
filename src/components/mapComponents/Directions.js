@@ -10,7 +10,7 @@ import { Context as LocationContext} from '../../context/locationContext'
 
 const SCREEN_WIDTH = Dimensions.get('window').width
 
-const GOOGLE_MAPS_KEY = 'AIzaSyCwiRauwwaNWHnuLAEWZiFj0ewyb5kTjFA'
+const GOOGLE_MAPS_KEY = 'Your api key goes here'
 
 const Directions = ({destination, name}) => {
 

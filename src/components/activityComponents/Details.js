@@ -14,15 +14,14 @@ function getTime() {
     const  hours = date.getHours();
     const  minutes = date.getMinutes();
     const  strTime = day + ' ' +  hours + ':' + minutes + ' '
-    console.log(strTime); 
   }
   
 getTime()
 
 
-export default function Details({ stars, name, image, phone, reviews, hours }) {
+export default function Details({ stars, name, image, phone, reviews, hours, address, isOpen }) {
    
-
+    console.log(isOpen);
     return (
         <View >
 
@@ -33,8 +32,8 @@ export default function Details({ stars, name, image, phone, reviews, hours }) {
 
             </View>
             <View style={styles.info}>
-                <View style={styles.openContainer}>
-                    <Text style={styles.open} >Open</Text>
+                <View style={ isOpen ? styles.openContainer : styles.closedContainer}>
+                    <Text style={styles.open} >{isOpen ? 'Open' : 'Closed'}</Text>
                 </View>
                 <View style={styles.phoneContainer} >
                     <FontAwesome name="phone" size={24} color="black" />
@@ -84,6 +83,14 @@ const styles = StyleSheet.create({
     },
     openContainer: {
         backgroundColor: '#3B6828',
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        borderRadius: 20,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    closedContainer: {
+        backgroundColor: '#b80f0a',
         paddingVertical: 5,
         paddingHorizontal: 20,
         borderRadius: 20,
